@@ -110,7 +110,7 @@ body{
 
 <script>
 /* ============================================================
-   CENAS — timestamps reais da música
+   CENAS — LETRA COMPLETA com timestamps exatos (3:41)
    ============================================================ */
 const cenas = [
   {
@@ -121,25 +121,25 @@ const cenas = [
     bg:"#e8d5e0", corTexto:"#3a2438"
   },
 
-  /* INTRO INSTRUMENTAL */
+  /* INTRO INSTRUMENTAL [0:00 - 0:18] */
   { t:0,   tipo:"cena", gif:"gifs/iniicio no piano.gif",
     pt:"", en:"", bg:"#2b1f2b", corTexto:"#f7e6ef" },
 
-  /* ===== VERSO 1 ===== */
+  /* ================= VERSO 1 ================= */
   { t:18,  tipo:"cena", gif:"gifs/olhos.gif",
-    pt:"Oh, os olhos dela, os olhos dela",
-    en:"Oh, her eyes, her eyes",
+    pt:"Ah, os olhos dela, os olhos dela Fazem as estrelas parecerem que não estão brilhando",
+    en:"Oh, her eyes, her eyes make the stars look like they're not shinin'",
     bg:"#1e2a3a", corTexto:"#c9e0ff" },
   { t:25,  tipo:"cena", gif:"gifs/cabelo.gif",
-    pt:"O cabelo dela, o cabelo dela",
-    en:"Her hair, her hair",
+    pt:"O cabelo dela, o cabelo dela se movimenta perfeitamente sem ela precisar fazer nada",
+    en:"Her hair, her hair falls perfectly without her tryin'",
     bg:"#3a2a1f", corTexto:"#f5e2cc" },
   { t:31,  tipo:"cena", gif:"gifs/ela é tao linda.gif",
     pt:"Ela é tão linda e eu digo isso para ela todos os dias",
     en:"She's so beautiful and I tell her everyday",
     bg:"#fce4ec", corTexto:"#a8386a" },
 
-  /* ===== VERSO 2 ===== */
+  /* ================= VERSO 2 ================= */
   { t:39,  tipo:"cena", gif:"gifs/nao acredita.gif",
     pt:"Sim, eu sei, eu sei, quando eu a elogio ela não acredita",
     en:"Yeah, I know, I know when I compliment her she won't believe me",
@@ -150,13 +150,14 @@ const cenas = [
     bg:"#1c1c2a", corTexto:"#b5b5d0" },
   { t:52,  tipo:"cena", gif:"gifs/se estra bonita.gif",
     pt:"Mas toda vez que ela me pergunta: eu estou bonita?",
-    en:"But every time she asks me, \"Do I look okay?\"",
+    en:"But every time she asks me: \"Do I look okay?\"",
     bg:"#3a2a3a", corTexto:"#f0d5f0" },
   { t:58,  tipo:"cena", gif:"gifs/quando ela me pergunta.gif",
-    pt:"Eu digo", en:"I say",
+    pt:"Eu digo",
+    en:"I say",
     bg:"#4a2a3a", corTexto:"#ffe4f0" },
 
-  /* ===== REFRÃO 1 ===== */
+  /* ================= REFRÃO 1 ================= */
   { t:61,  tipo:"cena", gif:"gifs/vejo seu rosto.gif",
     pt:"Quando eu vejo o seu rosto",
     en:"When I see your face",
@@ -190,7 +191,7 @@ const cenas = [
     en:"Just the way you are",
     bg:"#2a1a2a", corTexto:"#f0c8e0" },
 
-  /* ===== VERSO 3 ===== */
+  /* ================= VERSO 3 ================= */
   { t:93,  tipo:"cena", gif:"gifs/e os labios dela.gif",
     pt:"Os lábios dela, os lábios dela, eu poderia beijá-los o dia todo se ela me permitisse",
     en:"Her lips, her lips, I could kiss them all day if she'd let me",
@@ -204,9 +205,9 @@ const cenas = [
     en:"She's so beautiful and I tell her everyday",
     bg:"#fce4ec", corTexto:"#a8386a" },
 
-  /* ===== VERSO 4 ===== */
+  /* ================= VERSO 4 ================= */
   { t:114, tipo:"cena", gif:"gifs/jamais pediria.gif",
-    pt:"Oh você sabe, você sabe, você sabe que eu jamais pediria para você mudar",
+    pt:"Ah, você sabe, você sabe, você sabe que eu jamais pediria para você mudar",
     en:"Oh you know, you know, you know I'd never ask you to change",
     bg:"#2a2a3a", corTexto:"#d5d5f0" },
   { t:121, tipo:"cena", gif:"gifs/jamais pediria2.gif",
@@ -217,124 +218,98 @@ const cenas = [
     pt:"Então nem se preocupe em perguntar se você está bonita, você sabe que eu vou dizer",
     en:"So don't even bother askin' if you look okay, you know I'll say",
     bg:"#3a2a2a", corTexto:"#f0d0c0" },
+  { t:133, tipo:"cena", gif:"gifs/escolher.gif",
+    pt:"Quando eu vejo o seu rosto",
+    en:"When I see your face",
+    bg:"#4a2a3a", corTexto:"#ffe4f0" },
 
-  /* ===== REFRÃO 2 ===== */
-  { t:133, tipo:"cena", gif:"gifs/vejo seu rosto.gif",
+  /* ================= REFRÃO 2 ================= */
+  { t:135, tipo:"cena", gif:"gifs/vejo seu rosto.gif",
     pt:"Quando eu vejo o seu rosto",
     en:"When I see your face",
     bg:"#3a1f2a", corTexto:"#ffd6e4" },
-  { t:137, tipo:"cena", gif:"gifs/nada que eu mudaria.gif",
+  { t:139, tipo:"cena", gif:"gifs/nada que eu mudaria.gif",
     pt:"Não há nada que eu mudaria",
     en:"There's not a thing that I would change",
     bg:"#2a1a2a", corTexto:"#f0c8e0" },
-  { t:142, tipo:"cena", gif:"gifs/incrivel.gif",
+  { t:144, tipo:"cena", gif:"gifs/incrivel.gif",
     pt:"Porque você é incrível",
     en:"'Cause you're amazing",
     bg:"#ffe0ec", corTexto:"#b8326e" },
-  { t:146, tipo:"cena", gif:"gifs/incrivel1.gif",
+  { t:148, tipo:"cena", gif:"gifs/incrivel1.gif",
     pt:"Do jeito que você é",
     en:"Just the way you are",
     bg:"#ffd6e0", corTexto:"#a02558" },
-  { t:150, tipo:"cena", gif:"gifs/quando voce sorri.gif",
+  { t:152, tipo:"cena", gif:"gifs/quando voce sorri.gif",
     pt:"E quando você sorri",
     en:"And when you smile",
     bg:"#fff5cc", corTexto:"#a68018" },
-  { t:154, tipo:"cena", gif:"gifs/mundo inteiro..gif",
+  { t:156, tipo:"cena", gif:"gifs/mundo inteiro..gif",
     pt:"O mundo inteiro para e fica olhando por um tempo",
     en:"The whole world stops and stares for a while",
     bg:"#1a2a3a", corTexto:"#c5daff" },
-  { t:159, tipo:"cena", gif:"gifs/incrivel2.gif",
+  { t:161, tipo:"cena", gif:"gifs/incrivel2.gif",
     pt:"Porque, garota, você é incrível",
     en:"'Cause girl, you're amazing",
     bg:"#ffe0ec", corTexto:"#b8326e" },
-  { t:163, tipo:"cena", gif:"gifs/incrivel3.gif",
+  { t:165, tipo:"cena", gif:"gifs/incrivel3.gif",
     pt:"Do jeito que você é",
     en:"Just the way you are",
     bg:"#2a1a2a", corTexto:"#f0c8e0" },
 
-  /* ===== RAP (Lupe Fiasco) ===== */
-  { t:165, tipo:"cena", gif:"gifs/nada que mudaria.gif",
-    pt:"Uh, sim, a definição de real é: se você não sente, você não sente",
-    en:"Uh, yeah, the definition of real is if you don't feel then you don't feel it",
-    bg:"#1a1a2a", corTexto:"#c8c8e0" },
-  { t:170, tipo:"cena", gif:"gifs/escolher.gif",
-    pt:"Não esconda, não tenha medo",
-    en:"Don't conceal it, don't be afraid",
-    bg:"#1e1e2e", corTexto:"#d0d0e8" },
-  { t:173, tipo:"cena", gif:"gifs/por que voce é incrivel.gif",
-    pt:"Você está ótima, só o silicone vai te cobrar por isso",
-    en:"You look great, only silicon will bill it",
-    bg:"#20203a", corTexto:"#d8d8f0" },
-  { t:176, tipo:"cena", gif:"gifs/voce é incrivel.gif",
-    pt:"Um botox para acabar com tudo, você só está matando o espírito",
-    en:"A botox to kill it, you're just killin' off spirit",
-    bg:"#1a1a2e", corTexto:"#c8c8e8" },
-  { t:180, tipo:"cena", gif:"gifs/jamais pediria.gif",
-    pt:"E é com você mesma que você tem que viver",
-    en:"And you're the one that you gotta live with",
-    bg:"#20203a", corTexto:"#d8d8f0" },
-  { t:184, tipo:"cena", gif:"gifs/triste pensar.gif",
-    pt:"Então não fique presa à aparência",
-    en:"So don't get caught up in appearance",
-    bg:"#1c1c28", corTexto:"#c0c0d8" },
-  { t:187, tipo:"cena", gif:"gifs/tao linda.gif",
-    pt:"E veja a beleza interior quando você olhar no espelho",
-    en:"And see the inner beauty when you look off in the mirrors",
-    bg:"#e8d5e0", corTexto:"#6a3a5a" },
-
-  /* ===== PONTE ===== */
-  { t:192, tipo:"cena", gif:"gifs/do jeito que voce.gif",
+  /* ================= PONTE ================= */
+  { t:167, tipo:"cena", gif:"gifs/do jeito que voce.gif",
     pt:"Do jeito que você é",
     en:"The way you are",
     bg:"#ffd6e0", corTexto:"#a02558" },
-  { t:195, tipo:"cena", gif:"gifs/do jeito que voce é.gif",
+  { t:170, tipo:"cena", gif:"gifs/do jeito que voce é.gif",
     pt:"Do jeito que você é",
     en:"The way you are",
     bg:"#fff5cc", corTexto:"#a68018" },
-  { t:198, tipo:"cena", gif:"gifs/garota.gif",
+  { t:173, tipo:"cena", gif:"gifs/garota.gif",
     pt:"Garota, você é incrível",
     en:"Girl, you're amazing",
     bg:"#ffe0ec", corTexto:"#b8326e" },
-  { t:202, tipo:"cena", gif:"gifs/incrivel do jeito que voce é.gif",
+  { t:177, tipo:"cena", gif:"gifs/incrivel do jeito que voce é.gif",
     pt:"Do jeito que você é",
     en:"Just the way you are",
     bg:"#2a1a2a", corTexto:"#f0c8e0" },
 
-  /* ===== REFRÃO FINAL ===== */
-  { t:205, tipo:"cena", gif:"gifs/vejo seu rosto.gif",
+  /* ================= REFRÃO FINAL ================= */
+  { t:179, tipo:"cena", gif:"gifs/vejo seu rosto.gif",
     pt:"Quando eu vejo o seu rosto",
     en:"When I see your face",
     bg:"#3a1f2a", corTexto:"#ffd6e4" },
-  { t:209, tipo:"cena", gif:"gifs/nada que mudaria.gif",
+  { t:183, tipo:"cena", gif:"gifs/nada que mudaria.gif",
     pt:"Não há nada que eu mudaria",
     en:"There's not a thing I would change",
     bg:"#2a1a2a", corTexto:"#f0c8e0" },
-  { t:213, tipo:"cena", gif:"gifs/voce é incrivel.gif",
+  { t:188, tipo:"cena", gif:"gifs/voce é incrivel.gif",
     pt:"Porque você é incrível",
     en:"'Cause you're amazing",
     bg:"#ffe0ec", corTexto:"#b8326e" },
-  { t:217, tipo:"cena", gif:"gifs/por que voce é incrivel.gif",
+  { t:192, tipo:"cena", gif:"gifs/por que voce é incrivel.gif",
     pt:"Do jeito que você é",
     en:"Just the way you are",
     bg:"#ffd6e0", corTexto:"#a02558" },
-  { t:221, tipo:"cena", gif:"gifs/quando voce sorri.gif",
+  { t:196, tipo:"cena", gif:"gifs/quando voce sorri.gif",
     pt:"E quando você sorri",
     en:"And when you smile",
     bg:"#fff5cc", corTexto:"#a68018" },
-  { t:225, tipo:"cena", gif:"gifs/mundo inteiro.gif",
+  { t:200, tipo:"cena", gif:"gifs/mundo inteiro.gif",
     pt:"O mundo inteiro para e fica olhando por um tempo",
     en:"The whole world stops and stares for a while",
     bg:"#1a2a3a", corTexto:"#c5daff" },
-  { t:230, tipo:"cena", gif:"gifs/voce é.gif",
+  { t:205, tipo:"cena", gif:"gifs/voce é.gif",
     pt:"Porque, garota, você é incrível",
     en:"'Cause girl, you're amazing",
     bg:"#ffe0ec", corTexto:"#b8326e" },
-  { t:234, tipo:"cena", gif:"gifs/dalila.gif",
+  { t:209, tipo:"cena", gif:"gifs/dalila.gif",
     pt:"Do jeito que você é, sim",
     en:"Just the way you are, yeah",
     bg:"#2a1a2a", corTexto:"#f0c8e0" },
 
-  /* ===== ENCERRAMENTO ===== */
+  /* ================= ENCERRAMENTO ================= */
   {
     tipo:"capa",
     gif:"gifs/gatinho estrelado.gif",
