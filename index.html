@@ -110,14 +110,21 @@ body{
 
 <script>
 /* ============================================================
-   ⚙️ OFFSET GLOBAL — ajuste só este número!
-   Negativo = adianta as cenas (se estiver atrasado)
-   Positivo = atrasa as cenas (se estiver adiantado)
+   ⚙️ CALIBRAÇÃO — mexa só nestes dois números!
+
+   OFFSET (segundos): desloca TUDO igual
+     • Está tudo atrasado por um valor fixo?  →  diminui (mais negativo)
+     • Está tudo adiantado?                    →  aumenta
+
+   SCALE (multiplicador): corrige atraso que AUMENTA com o tempo
+     • Cada cena atrasa mais que a anterior?   →  aumenta (1.01, 1.02, 1.03...)
+     • Cada cena adianta mais que a anterior?  →  diminui (0.99, 0.98...)
    ============================================================ */
-const OFFSET = -4;  // em segundos
+const OFFSET = -4;      // tente -6, -8 se estiver atrasado; -2, 0 se adiantado
+const SCALE  = 1.02;    // tente 1.03, 1.04 se cada cena atrasa mais; 1.01, 0.99 etc
 
 /* ============================================================
-   CENAS — timestamps originais (a OFFSET é somada em runtime)
+   CENAS — timestamps originais
    ============================================================ */
 const cenas = [
   {
@@ -361,18 +368,21 @@ function carregarCena(i){
 }
 
 /* ============================================================
-   TEMPO ATUAL (já com OFFSET aplicado)
+   TEMPO ATUAL — com OFFSET e SCALE
    ============================================================ */
 function tempoAtual(){
-  let t = musica.currentTime;
-  if(isNaN(t) || musica.paused || t <= 0){
-    if(inicioWallClock > 0){
-      t = (performance.now() - inicioWallClock) / 1000;
-    } else {
-      return 0;
-    }
+  let t;
+  const ct = musica.currentTime;
+
+  if(!isNaN(ct) && !musica.paused && ct > 0){
+    t = ct;
+  } else if(inicioWallClock > 0){
+    t = (performance.now() - inicioWallClock) / 1000;
+  } else {
+    return 0;
   }
-  return t - OFFSET;  /* aplica o offset */
+
+  return (t * SCALE) - OFFSET;
 }
 
 /* ============================================================
