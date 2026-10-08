@@ -104,20 +104,16 @@ body{
   <button id="btn" class="botao">▶ Começar</button>
 </div>
 
-<!-- 🎵 música -->
+<!-- ✅ AGORA APONTA PRO ARQUIVO CERTO: musicas/musica.mp3 -->
 <audio id="musica" preload="auto">
-  <source src="musicas/musica3.mp3" type="audio/mpeg">
+  <source src="musicas/musica.mp3" type="audio/mpeg">
 </audio>
 
 <script>
 /* ============================================================
-   CENAS — cada uma com `t` = segundo exato da música
-   A sincronização é feita pelo currentTime do <audio>,
-   então NUNCA atrasa nem adianta. 
+   CENAS — `t` = segundo exato da música
    ============================================================ */
 const cenas = [
-
-  /* ---------- CAPA (espera clique) ---------- */
   {
     tipo:"capa",
     gif:"gifs/inicio no piano.gif",
@@ -126,12 +122,9 @@ const cenas = [
     bg:"#e8d5e0", corTexto:"#3a2438"
   },
 
-  /* ---------- CENAS SINCRONIZADAS ---------- */
   { t:0,   tipo:"cena", gif:"gifs/inicio no piano.gif",
-    pt:"", en:"",
-    bg:"#2b1f2b", corTexto:"#f7e6ef" },
+    pt:"", en:"", bg:"#2b1f2b", corTexto:"#f7e6ef" },
 
-  /* Verso 1 */
   { t:9,   tipo:"cena", gif:"gifs/olhos.gif",
     pt:"Oh, os olhos dela, os olhos dela",
     en:"Oh, her eyes, her eyes",
@@ -144,8 +137,6 @@ const cenas = [
     pt:"Ela é tão linda e eu digo isso para ela todos os dias",
     en:"She's so beautiful and I tell her everyday",
     bg:"#fce4ec", corTexto:"#a8386a" },
-
-  /* Verso 2 */
   { t:30,  tipo:"cena", gif:"gifs/nao acredita.gif",
     pt:"Sim, eu sei, eu sei, quando eu a elogio ela não acredita",
     en:"Yeah, I know, I know when I compliment her she won't believe me",
@@ -159,11 +150,9 @@ const cenas = [
     en:"But every time she asks me, \"Do I look okay?\"",
     bg:"#3a2a3a", corTexto:"#f0d5f0" },
   { t:49,  tipo:"cena", gif:"gifs/quando ela me pergunta.gif",
-    pt:"Eu digo",
-    en:"I say",
+    pt:"Eu digo", en:"I say",
     bg:"#4a2a3a", corTexto:"#ffe4f0" },
 
-  /* Refrão 1 */
   { t:52,  tipo:"cena", gif:"gifs/vejo seu rosto.gif",
     pt:"Quando eu vejo o seu rosto",
     en:"When I see your face",
@@ -197,7 +186,6 @@ const cenas = [
     en:"Just the way you are",
     bg:"#2a1a2a", corTexto:"#f0c8e0" },
 
-  /* Verso 3 */
   { t:84,  tipo:"cena", gif:"gifs/e os labios dela.gif",
     pt:"Os lábios dela, os lábios dela, eu poderia beijá-los o dia todo se ela me permitisse",
     en:"Her lips, her lips, I could kiss them all day if she'd let me",
@@ -211,7 +199,6 @@ const cenas = [
     en:"She's so beautiful and I tell her everyday",
     bg:"#fce4ec", corTexto:"#a8386a" },
 
-  /* Verso 4 */
   { t:105, tipo:"cena", gif:"gifs/jamais pediria.gif",
     pt:"Oh você sabe, você sabe, você sabe que eu jamais pediria para você mudar",
     en:"Oh you know, you know, you know I'd never ask you to change",
@@ -229,7 +216,6 @@ const cenas = [
     en:"You know I'll say",
     bg:"#4a2a3a", corTexto:"#ffe4f0" },
 
-  /* Refrão 2 */
   { t:126, tipo:"cena", gif:"gifs/vejo seu rosto.gif",
     pt:"Quando eu vejo o seu rosto",
     en:"When I see your face",
@@ -263,7 +249,6 @@ const cenas = [
     en:"Just the way you are",
     bg:"#2a1a2a", corTexto:"#f0c8e0" },
 
-  /* Ponte */
   { t:158, tipo:"cena", gif:"gifs/do jeito que voce.gif",
     pt:"Do jeito que você é",
     en:"The way you are",
@@ -281,7 +266,6 @@ const cenas = [
     en:"Just the way you are",
     bg:"#2a1a2a", corTexto:"#f0c8e0" },
 
-  /* Refrão final */
   { t:170, tipo:"cena", gif:"gifs/vejo seu rosto.gif",
     pt:"Quando eu vejo o seu rosto",
     en:"When I see your face",
@@ -315,7 +299,6 @@ const cenas = [
     en:"Just the way you are",
     bg:"#2a1a2a", corTexto:"#f0c8e0" },
 
-  /* ---------- ENCERRAMENTO (acionado pelo fim da música) ---------- */
   {
     tipo:"capa",
     gif:"gifs/gatinho estrelado.gif",
@@ -331,6 +314,7 @@ const cenas = [
 let atual = 0;
 let musicaIniciada = false;
 let rafId = null;
+let inicioWallClock = 0;
 
 const carta  = document.getElementById("carta");
 const area   = document.getElementById("areaGatos");
@@ -339,13 +323,14 @@ const texto  = document.getElementById("texto");
 const btn    = document.getElementById("btn");
 const musica = document.getElementById("musica");
 
-musica.volume = 0.5;
+try { musica.volume = 0.5; } catch(e){}
 
 /* ============================================================
    RENDER
    ============================================================ */
 function carregarCena(i){
   const c = cenas[i];
+  if(!c) return;
 
   titulo.innerHTML = "";
   texto.innerHTML  = "";
@@ -354,7 +339,6 @@ function carregarCena(i){
   carta.classList.remove("carta-cena", "carta-capa");
   carta.style.background = c.bg;
 
-  /* CAPA */
   if(c.tipo === "capa"){
     carta.classList.add("carta-capa");
     area.innerHTML = `<img class="meme-single" src="${c.gif}" alt="">`;
@@ -372,12 +356,9 @@ function carregarCena(i){
       btn.style.display = "";
       btn.textContent = "▶ Começar";
     } else {
-      btn.style.display = "none"; // encerramento esconde
+      btn.style.display = "none";
     }
-  }
-
-  /* CENA */
-  else {
+  } else {
     carta.classList.add("carta-cena");
     const temLetra = (c.pt && c.pt.trim() !== "");
     area.innerHTML = `
@@ -390,21 +371,31 @@ function carregarCena(i){
 }
 
 /* ============================================================
-   LOOP DE SINCRONIZAÇÃO — usa o currentTime da música
+   TEMPO ATUAL (áudio ou relógio de fallback)
+   ============================================================ */
+function tempoAtual(){
+  const t = musica.currentTime;
+  if(!isNaN(t) && !musica.paused && t > 0){
+    return t;
+  }
+  if(inicioWallClock > 0){
+    return (performance.now() - inicioWallClock) / 1000;
+  }
+  return 0;
+}
+
+/* ============================================================
+   LOOP
    ============================================================ */
 function tick(){
-  if(!musicaIniciada){ rafId = requestAnimationFrame(tick); return; }
+  if(!musicaIniciada) return;
 
-  const tempo = musica.currentTime;
+  const tempo = tempoAtual();
 
-  /* Acha a última cena cujo `t` <= tempo atual.
-     Só consideramos cenas com `t` definido (a capa inicial e o
-     encerramento não têm `t`, então ficam de fora do loop). */
   let alvo = atual;
-
   for(let i = 1; i < cenas.length - 1; i++){
     const c = cenas[i];
-    if(c.t !== undefined && c.t <= tempo){
+    if(typeof c.t === "number" && c.t <= tempo){
       alvo = i;
     } else {
       break;
@@ -419,9 +410,6 @@ function tick(){
   rafId = requestAnimationFrame(tick);
 }
 
-/* ============================================================
-   FIM DA MÚSICA → vai pro gatinho estrelado
-   ============================================================ */
 musica.addEventListener("ended", () => {
   if(rafId) cancelAnimationFrame(rafId);
   atual = cenas.length - 1;
@@ -429,28 +417,29 @@ musica.addEventListener("ended", () => {
 });
 
 /* ============================================================
-   CLIQUE DO BOTÃO
+   CLIQUE
    ============================================================ */
 btn.onclick = () => {
-  if(!musicaIniciada){
+  if(atual === 0){
     musicaIniciada = true;
-    musica.volume = 0.5;
-    const p = musica.play();
-    if(p && p.catch) p.catch(e => console.warn("play() falhou:", e));
+    inicioWallClock = performance.now();
 
-    /* Já começa na primeira cena sincronizada (t=0) */
     atual = 1;
     carregarCena(1);
-
-    /* Inicia o loop de sincronização */
     rafId = requestAnimationFrame(tick);
-    return;
+
+    try {
+      musica.volume = 0.5;
+      const p = musica.play();
+      if(p && p.catch){
+        p.catch(e => console.warn("play() falhou:", e));
+      }
+    } catch(e){
+      console.warn("play() jogou exceção:", e);
+    }
   }
 };
 
-/* ============================================================
-   START
-   ============================================================ */
 carregarCena(0);
 </script>
 </body>
